@@ -86,7 +86,7 @@ export class Computer {
         for (let i = 0; i < this.serviceList.length; i++) {
             billService += this.serviceList[i].calBillService()
         }
-        let total = this.price * ((timeOff.getTime() - this.timeCom.getTime())/1000) + billService ;
+        let total = (this.price * ((timeOff.getTime() - this.timeCom.getTime())/1000)) + billService ;
         return total
     }
 }

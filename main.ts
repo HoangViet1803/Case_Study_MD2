@@ -43,7 +43,7 @@ function showMainMenu() {
     0. Thoát
     `);
 }
-function validateUserName (newUserName: string, index: number) {
+function validateUserName (newUserName: string) {
     if (newUserName.trim() === ""){
         console.log("Username không được để trống");
         return false
@@ -80,7 +80,7 @@ function editInfoAccount () {
         password: ${accountList.getAccounts()[index].getPassword()}
         `);
         let newUserName = readlineSync.question("New username: ");
-        if (validateUserName(newUserName, index) === false) {
+        if (validateUserName(newUserName) === false) {
             break;
         }
         let newPassword = readlineSync.question('New password: ')
@@ -113,6 +113,9 @@ function coltrolAccountManager () {
                 break;
             case 1:
                 let userName = readlineSync.question('Username: ');
+                if (validateUserName(userName) === false) {
+                    break;
+                }
                 let password = readlineSync.question('Password: ');
                 let newAccount = new Account(userName, password);
                 accountList.addNewAccount(newAccount);
@@ -217,7 +220,7 @@ function turnOffAndBill() {
             }
         }
         console.log(`
-        Tổng tiền: ${bill}
+        Tổng tiền: ${bill.toFixed(2)}
         --------------------------------------------------------------------------------------------------------------------`);
         listComputerOnline()[indexCom].resetServieList()
         listComputerOnline()[indexCom].setStatus(StatusComputer.disabled);
@@ -317,7 +320,7 @@ Tên: ${serviceList[i].getServiceName()} - Số lượng: ${serviceList[i].getAm
                             billService += serviceList[i].calBillService()
                         }
                         console.log(`
-Tổng tiền: ${comList[index].getPrice() * totalTime  + billService}
+Tổng tiền: ${(comList[index].getPrice() * totalTime  + billService).toFixed(2)}
 ****************************************************************************************
                         `)}
                     break;
